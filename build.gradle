@@ -21,20 +21,34 @@ bootJar {
     archiveFileName = "${archiveBaseName.get()}.${archiveExtension.get()}"
 }
 
+bootRun {
+    // support passing -Dsystem.property=value to bootRun task
+    //Execute task 'bootRun -Dlog4j2.contextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector'
+    systemProperties = System.properties
+}
+
 repositories {
     mavenLocal()
     mavenCentral()
 }
 
+ext {
+    jacksonVersion = '2.9.9'
+}
+
 dependencies {
-    compile "ch.qos.logback:logback-classic:1.2.3"
     compile "org.apache.commons:commons-lang3:+"
-    compile "org.springframework.boot:spring-boot-starter-web"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    }
+    compile "org.springframework.boot:spring-boot-starter-log4j2"
     compile "com.github.ben-manes.caffeine:caffeine:+"
+    compile "com.lmax:disruptor:+"
     compile "com.google.guava:guava:+"
     compile "commons-beanutils:commons-beanutils:+"
     compile "org.apache.commons:commons-collections4:+"
+    compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion"
 
     testCompile "junit:junit:+"
     testCompile "org.springframework.boot:spring-boot-starter-test"

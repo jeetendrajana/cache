@@ -1,7 +1,7 @@
 package com.jj;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.function.Function;
@@ -11,7 +11,7 @@ import static com.google.common.collect.Lists.newArrayList;
 public enum ProductLookup implements Function<String, List<Product>> {
     INSTANCE;
 
-    private static final Logger LOG = LoggerFactory.getLogger(ProductLookup.class);
+    private static final Logger LOG = LogManager.getLogger(ProductLookup.class);
 
     @Override
     public List<Product> apply(String s) {

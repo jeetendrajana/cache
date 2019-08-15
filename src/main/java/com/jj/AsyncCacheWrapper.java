@@ -2,8 +2,8 @@ package com.jj;
 
 import com.github.benmanes.caffeine.cache.AsyncCache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.Duration;
 import java.util.concurrent.ExecutionException;
@@ -17,7 +17,7 @@ import java.util.function.Function;
  * @param <V>
  */
 public class AsyncCacheWrapper<K, V> {
-    private static final Logger LOG = LoggerFactory.getLogger(AsyncCacheWrapper.class);
+    private static final Logger LOG = LogManager.getLogger(AsyncCacheWrapper.class);
 
     private final AsyncCache<K, V> cache;
     private final Function<K, V> lookup;
